@@ -1,13 +1,17 @@
 console.log('May Node be with you');
 
-const express = require('express'),
-      app = express(),
-      port = process.env.PORT || 3005,
-      routes = require('./api/routes/waterReminderRoutes'),
-      mongoose = require('mongoose'),
-      Drink = require('./api/models/DrinkModel'),
-      DrinksDayByDay = require('./api/models/DrinksDayByDayModel'),
-      bodyParser = require('body-parser');
+const
+    port = process.env.PORT || 3005,
+    mongoose = require('mongoose'),
+    bodyParser = require('body-parser'),
+    app = require('express')(),
+    server = app.listen(port),
+    io = require('socket.io')(server),
+
+
+    routes = require('./api/routes/waterReminderRoutes'),
+    Drink = require('./api/models/DrinkModel'),
+    DrinksDayByDay = require('./api/models/DrinksDayByDayModel');
 
 
 mongoose.Promise = global.Promise;
@@ -36,6 +40,10 @@ app.use(function (req, res, next) {
 
 routes(app);
 
-app.listen(port, function() {
-    console.log('listening on ' + port)
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', function(socket){
+    console.log('a user connected');
 });
