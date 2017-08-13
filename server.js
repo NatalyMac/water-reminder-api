@@ -37,10 +37,5 @@ app.use(function (req, res, next) {
 routes(app);
 
 app.listen(port, function() {
-    console.log('listening on' + port)
+    console.log('listening on ' + port)
 });
-
-/*app.get('/', (req, res) => {
-    res.send('hello world')
-});
-*/

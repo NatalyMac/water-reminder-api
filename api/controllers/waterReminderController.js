@@ -4,6 +4,7 @@ const mongoose = require('mongoose'),
       Drink = mongoose.model('Drink'),
       DrinksDayByDay = mongoose.model('DrinksDayByDay');
 
+
 exports.index_drinks = function(req, res) {
     Drink.find({}, function(err, drink) {
         if (err)

@@ -3,12 +3,9 @@ module.exports = function(app) {
 
     const waterReminder = require('../controllers/waterReminderController');
 
-
-    // reminder Routes
     app.route('/api/drinks')
         .get(waterReminder.index_drinks)
         .post(waterReminder.create_drink);
-
 
     app.route('/api/drinks/:drinkId')
         .get(waterReminder.view_drink)
