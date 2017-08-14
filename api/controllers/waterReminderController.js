@@ -63,10 +63,7 @@ exports.delete_drink = function(req, res) {
 exports.index_user_drinks_today = function(req, res) {
     //todo find for user too
     let today = new Date().toISOString().split('T')[0];
-    console.log(today);
     DrinksDayByDay.find({"created_date": {$regex: today}}, function(err, result){
-        console.log('!-------');
-        //console.log(result);
     });
     DrinksDayByDay.aggregate([
         { $match: {

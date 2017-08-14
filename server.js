@@ -15,14 +15,15 @@ const
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/water-reminder');
+mongoose.connect('mongodb://127.0.0.1:3001/water-reminder');
+// localhost
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3002');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -44,6 +45,9 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
+
 io.on('connection', function(socket){
-    console.log('a user connected');
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+    });
 });
